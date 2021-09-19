@@ -1,0 +1,17 @@
+{
+  "name": "tree-sitter-peg",
+  "version": "1.0.0",
+  "description": "syntax parsing for Parsing Expression Grammar files",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dmitry Mozzherin",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.15.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.0"
+  }
+}

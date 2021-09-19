@@ -1,0 +1,65 @@
+====================
+Go Section
+====================
+
+package test
+
+type Test Peg {
+  baseEngine
+}
+
+Rule <- 'one'
+
+----
+
+(source_file 
+  (go_section 
+    (package_clause) (package_identifier)
+    (type_declaration 
+      (type_spec
+        name: (type_identifier)
+        type: (type_identifier)
+      )
+        (block (type_identifier)
+      )
+    )
+  )
+  (peg_section 
+    (peg_rule 
+      (rule_name 
+        rule: (rule_identifier)
+      ) 
+      (operator_assign)
+      (rule_body (text (text_case_sen)))
+    )
+  )
+)
+
+====================
+Simple rule
+====================
+
+Element <- 'den'
+type <- "element"
+
+----
+(source_file 
+  (peg_section 
+    (peg_rule 
+      (rule_name 
+        rule: (rule_identifier)
+      ) 
+      (operator_assign)
+      (rule_body (text (text_case_sen)))
+    ) 
+    (peg_rule 
+      (rule_name
+        rule: (rule_identifier)
+      )
+      (operator_assign)
+      (rule_body (text (text_case_insen)))
+    )
+  )
+) 
+
+

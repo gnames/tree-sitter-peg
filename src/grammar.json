@@ -1,0 +1,284 @@
+{
+  "name": "peg",
+  "rules": {
+    "source_file": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "go_section"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "peg_section"
+        }
+      ]
+    },
+    "go_section": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "package_clause"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "package_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_declaration"
+        }
+      ]
+    },
+    "package_clause": {
+      "type": "STRING",
+      "value": "package"
+    },
+    "package_identifier": {
+      "type": "PATTERN",
+      "value": "[a-z]+"
+    },
+    "type_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_spec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block"
+        }
+      ]
+    },
+    "type_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_identifier"
+          }
+        }
+      ]
+    },
+    "block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "type_identifier": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]+"
+    },
+    "peg_section": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "peg_rule"
+      }
+    },
+    "peg_rule": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "rule_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "operator_assign"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rule_body"
+        }
+      ]
+    },
+    "rule_name": {
+      "type": "FIELD",
+      "name": "rule",
+      "content": {
+        "type": "SYMBOL",
+        "name": "rule_identifier"
+      }
+    },
+    "operator_assign": {
+      "type": "STRING",
+      "value": "<-"
+    },
+    "rule_body": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "rule_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text"
+        }
+      ]
+    },
+    "rule_identifier": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]+"
+    },
+    "quantifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "zero_or_one"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "none_or_more"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "one_or_more"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "not"
+        }
+      ]
+    },
+    "or": {
+      "type": "STRING",
+      "value": "/"
+    },
+    "not": {
+      "type": "STRING",
+      "value": "!"
+    },
+    "none_or_more": {
+      "type": "STRING",
+      "value": "*"
+    },
+    "one_or_more": {
+      "type": "STRING",
+      "value": "+"
+    },
+    "zero_or_one": {
+      "type": "STRING",
+      "value": "?"
+    },
+    "set_chars": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^]]+"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "any_char": {
+      "type": "STRING",
+      "value": "."
+    },
+    "text": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "text_case_sen"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_case_insen"
+        }
+      ]
+    },
+    "text_case_sen": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^']+"
+        },
+        {
+          "type": "STRING",
+          "value": "'"
+        }
+      ]
+    },
+    "text_case_insen": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\"]+"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+
